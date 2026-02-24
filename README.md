@@ -1,34 +1,47 @@
-# IoT-Smart-Home-Automation
-Introduction
 
-Developed an IoT-based smart home system capable of controlling 8 AC appliances using touch sensors, Bluetooth, and cloud services. The system integrates smart door control, real-time monitoring, and a custom Android application to enhance security, convenience, and energy efficiency.
 
-🚀 Features
+# Smart Home Automation using ESP32 & Blynk
 
-Control 8 AC Appliances – Manage multiple devices effortlessly.
+## Introduction
+This project demonstrates an IoT-based home automation system using the ESP32 microcontroller and the Blynk IoT platform. The system allows users to remotely control home appliances such as lights from anywhere using a smartphone.
 
-Smart Door Control – Secure your home with an intelligent door locking system.
+The ESP32 connects to Wi-Fi and communicates with the Blynk Cloud server. When a button is pressed in the Blynk app, a signal is sent to the ESP32, which controls a relay module to switch the connected appliance ON or OFF.
 
-Multiple Control Options – Operate appliances via touch sensors, Bluetooth, or cloud services.
+---
 
-Custom Android App – User-friendly interface for easy and remote control.
+## Components Required
+- ESP32 Development Board
+- 5V Relay Module
+- Bulb with Holder
+- Breadboard
+- Jumper Wires
+- 5V Power Supply
+- Wi-Fi Connection
+- Smartphone with Blynk IoT App
 
-Real-time Monitoring – Track appliance status anytime, anywhere.
+---
 
-Energy Efficiency – Optimize power consumption with smart automation.
+## Connections
 
-🛠️ Technologies Used
+### Relay to ESP32
+- Relay VCC → ESP32 VIN (5V)
+- Relay GND → ESP32 GND
+- Relay IN → ESP32 GPIO 23
 
-ESP32 – Main controller with built-in Wi-Fi and Bluetooth.
+### Bulb to Relay
+- Live wire → COM terminal of relay
+- NO (Normally Open) → One terminal of bulb
+- Other bulb terminal → Neutral
 
-Android – Mobile application development platform.
+## Working
 
-Arduino IDE – Used for programming the ESP32.
+1. ESP32 connects to Wi-Fi.
+2. ESP32 connects to Blynk Cloud using Auth Token.
+3. User presses the button in Blynk mobile app.
+4. Blynk sends command to ESP32 via Virtual Pin (V0).
+5. ESP32 sets GPIO HIGH or LOW.
+6. Relay switches ON/OFF.
+7. Light turns ON/OFF accordingly.
 
-Bluetooth – Enables local wireless control.
+---
 
-Cloud Services – Allows remote access and monitoring.
-
-L293D – Motor driver IC for controlling DC motors (Smart Door).
-
-Relay Modules – Used to switch AC appliances ON/OFF.
