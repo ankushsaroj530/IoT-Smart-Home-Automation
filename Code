@@ -1,0 +1,37 @@
+## Code (Arduino IDE)
+
+```cpp
+
+#define BLYNK_TEMPLATE_ID "YourTemplateID"
+#define BLYNK_TEMPLATE_NAME "SmartHome"
+#define BLYNK_AUTH_TOKEN "YourAuthToken"
+
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+
+// WiFi Credentials
+char ssid[] = "YourWiFiName";
+char pass[] = "YourWiFiPassword";
+
+// Relay Pin
+#define RELAY_PIN 23
+
+// Blynk Virtual Pin V0
+BLYNK_WRITE(V0) {
+  int relayState = param.asInt();   // Get value from app
+  digitalWrite(RELAY_PIN, relayState);
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);   // Relay OFF initially
+
+  // Connect to Blynk
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+}
+
+void loop() {
+  Blynk.run();
+}
