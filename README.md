@@ -1,47 +1,30 @@
+## Code
 
+```cpp
+#define BLYNK_TEMPLATE_ID "YourTemplateID"
+#define BLYNK_TEMPLATE_NAME "SmartHome"
+#define BLYNK_AUTH_TOKEN "YourAuthToken"
 
-# Smart Home Automation using ESP32 & Blynk
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
 
-## Introduction
-This project demonstrates an IoT-based home automation system using the ESP32 microcontroller and the Blynk IoT platform. The system allows users to remotely control home appliances such as lights from anywhere using a smartphone.
+char ssid[] = "YourWiFiName";
+char pass[] = "YourWiFiPassword";
 
-The ESP32 connects to Wi-Fi and communicates with the Blynk Cloud server. When a button is pressed in the Blynk app, a signal is sent to the ESP32, which controls a relay module to switch the connected appliance ON or OFF.
+#define RELAY_PIN 23
 
----
+BLYNK_WRITE(V0) {
+  int state = param.asInt();
+  digitalWrite(RELAY_PIN, state);
+}
 
-## Components Required
-- ESP32 Development Board
-- 5V Relay Module
-- Bulb with Holder
-- Breadboard
-- Jumper Wires
-- 5V Power Supply
-- Wi-Fi Connection
-- Smartphone with Blynk IoT App
+void setup() {
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+}
 
----
-
-## Connections
-
-### Relay to ESP32
-- Relay VCC → ESP32 VIN (5V)
-- Relay GND → ESP32 GND
-- Relay IN → ESP32 GPIO 23
-
-### Bulb to Relay
-- Live wire → COM terminal of relay
-- NO (Normally Open) → One terminal of bulb
-- Other bulb terminal → Neutral
-
-## Working
-
-1. ESP32 connects to Wi-Fi.
-2. ESP32 connects to Blynk Cloud using Auth Token.
-3. User presses the button in Blynk mobile app.
-4. Blynk sends command to ESP32 via Virtual Pin (V0).
-5. ESP32 sets GPIO HIGH or LOW.
-6. Relay switches ON/OFF.
-7. Light turns ON/OFF accordingly.
-
----
+void loop() {
+  Blynk.run();
+}
 
